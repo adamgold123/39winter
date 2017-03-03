@@ -8,6 +8,7 @@ Your browser does not support the canvas element.
 <script src="https://seattleacademy.software/js/jquery-3.0.0.min.js"></script>
 <script type="text/javascript">
     window.onload = function(){
+        console.log('drone')
         var canvas = document.getElementById('myCanvas');
         var context = canvas.getContext('2d');
         var img = new Image();
@@ -27,12 +28,6 @@ Your browser does not support the canvas element.
     return undefined;
     }
 
-    function rgbToHex(r, g, b){
-    if (r > 255 || g > 255 || b > 255)
-        throw "Invalid color component";
-    return ((r << 16) | (g << 8) | b).toString(16);
-    }
-
 $('#myCanvas').click(function(e){
     var position = findPos(this);
     var x = e.pageX - position.x;
@@ -40,13 +35,12 @@ $('#myCanvas').click(function(e){
     var coordinate = "x=" + x + ", y=" + y;
     var canvas = this.getContext('2d');
     var p = canvas.getImageData(x, y, 1, 1).data;
-    var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
     $("#r").text(p[0]);
     $("#g").text(p[1]);
     $("#b").text(p[2]);
-    //alert("HEX: " + hex);
 });
 </script>
+<img src="drone.jpg"/>
 
 </body>
 </html>
