@@ -5,6 +5,7 @@
   <title>tracking.js - color with camera</title>
   
   <script src="tracking.js"></script>
+  <script src="color_tracker.js"></script>
   <style>
   video, canvas {
     margin-left: 100px;
@@ -31,25 +32,25 @@
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
 
+//change the numbers below to correspond to the color you want to track
    tracking.ColorTracker.registerColor('custom', function(r, g, b) {
-    var threshold = 50,
-      dx = r - 255,
-      dy = g - 0,
-      dz = b - 255;
+   // console.log(r,g,b)
+    var threshold = 
+      dx = r - 51,
+      dy = g - 56,
+      dz = b - 40;
 
-    return dx * dx + dy * dy + dz * dz < 100;
+    return dx * dx + dy * dy + dz * dz < 100000; //make this number larger to match more co]ors
   });
-      var tracker = new tracking.ColorTracker();
-
-
-
+   //Tracks the basic colors and the custom color
+      var tracker = new tracking.ColorTracker(['magenta', 'cyan', 'yellow', 'custom']);
+      //Use this instead of the above if you just want to track the custom color
+      //var tracker = new tracking.ColorTracker('custom');
 
       tracking.track('#video', tracker, { camera: true });
 
       tracker.on('track', function(event) {
-        console.log("track")
         context.clearRect(0, 0, canvas.width, canvas.height);
-
         event.data.forEach(function(rect) {
           if (rect.color === 'custom') {
             rect.color = tracker.customColor;
